@@ -27,7 +27,7 @@
 
     var defaultCircleRadius = 2;
 
-    var viz = d3.select("#viz-wrapper")
+    var svg = d3.select("#viz-wrapper")
                     .append('svg')
                     .attr('height', height + padding * 2 )
                     .attr('width', width + padding * 2)
@@ -66,12 +66,34 @@
       data.forEach(function(d){
         d.carat = +d.carat;
         d.price = +d.price;
-
-        var node = svg.selectAll(".node")
-        .data(bubble.nodes();
-
+        // console.log(d.carat);
       });
-    // console.log(data);
+    
+
+    //Set X domain
+    x.domain(data.map(function(d){
+
+      return d.carat;
+
+    }));
+
+    //Set Y domain
+    y.domain([0, d3.max(data, function(d) {
+      return d.price;
+    })]);
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .attr("transform", "rotate(-90)");
+
+ 
+    // console.log(xDomain);
+    console.log(data);
 
     });
     
