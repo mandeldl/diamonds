@@ -49,15 +49,29 @@
     // var xScale = d3.scale.linear()
     //                       .range([0, width]);
 
+    // Copied from Bubble Chart demo: http://bl.ocks.org/mbostock/4063269
+    var diameter = 960,
+        format = d3.format(",d"),
+        color = d3.scale.category20c();
 
-   d3.csv("diamonds.csv?$select=carat,price",
+    var bubble =  d3.layout.pack()
+                  .sort(null)
+                  .size([diameter, diameter])
+                  .padding(1.5);
+    // End Copy
+
+
+   var diamonds = d3.csv("diamonds.csv",
     function (error, data) {
       data.forEach(function(d){
         d.carat = +d.carat;
         d.price = +d.price;
-      });
 
-    console.log(data);
+        var node = svg.selectAll(".node")
+        .data(bubble.nodes();
+
+      });
+    // console.log(data);
 
     });
     
